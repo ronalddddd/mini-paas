@@ -8,8 +8,7 @@ Use at your own risk!
 
 ## Motivation
 
-AWS, Heroku, etc are great PaaS offerings, but leaves more to be desired when on a tight budget.
-I want portable, self-serviced container deployments, and don't want to worry too much about:
+Budget container PaaS solution that offers portable, self-serviced container deployments, and don't want to worry too much about:
 
 - backups
 - node failures
@@ -20,7 +19,7 @@ I want portable, self-serviced container deployments, and don't want to worry to
 
 ### Basic
 
-- [x] **Terraform** to automate provisioning of a docker swarm clusters on **Vultr**
+- [x] **Terraform** to automate provisioning of docker swarm clusters on [**Vultr**](http://vultr.com)
     - ability to add more nodes as you need them
 - [x] **Docker Swarm** for container orchestration
 - [x] **Traefik** for reverse proxy service (aka ingress) with automated SSL cert creation
@@ -49,6 +48,9 @@ module "mini-pass-example" {
   source = "/tf_modules/mini-paas/vultr"
   cluster_name = "example-cluster"
   cluster_worker_count = 1
+  //cluster_instance_price_per_month = "10.00"
+  //cluster_ram_mb = "2048" 
+  //cluster_region = "Singapore"
   dns_domain = "example.com"
   dns_acme_email = "email@example.com"
   ssh_key_source = "/deployment/resources/example_rsa"
