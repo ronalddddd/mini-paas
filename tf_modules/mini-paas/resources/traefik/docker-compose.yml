@@ -1,0 +1,23 @@
+version: "3"
+
+networks:
+  traefik-net:
+    driver: overlay
+
+services:
+  traefik:
+    image: traefik:1.4.5
+    deploy:
+      placement:
+        constraints:
+          - node.role == manager
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "${swarm_volumes_path}/traefik/traefik.toml:/etc/traefik/traefik.toml"
+      - "${swarm_volumes_path}/traefik/acme.json:/acme.json"
+    networks:
+      - traefik-net
+    ports:
+      - "8000:8080"
+      - "80:80"
+      - "443:443"

@@ -1,0 +1,16 @@
+version: "3"
+services:
+  whoami:
+    image: emilevauge/whoami
+    networks:
+      - traefik-net
+    deploy:
+      mode: global
+      labels:
+        - "traefik.port=80"
+        - "traefik.docker.network=ingress_traefik-net"
+        - "traefik.frontend.rule=Host:whoami.${dns_domain}"
+networks:
+  traefik-net:
+    external:
+      name: ingress_traefik-net
